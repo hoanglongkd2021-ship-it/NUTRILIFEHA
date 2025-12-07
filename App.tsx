@@ -181,8 +181,19 @@ const AuthenticatedApp: React.FC<AuthenticatedAppProps> = ({ currentUser, onLogo
         }
     };
     checkDate();
+    // Use both interval and visibility change for robustness
     const intervalId = setInterval(checkDate, 60000);
-    return () => clearInterval(intervalId);
+    const handleVisibilityChange = () => {
+        if (!document.hidden) {
+            checkDate();
+        }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+        clearInterval(intervalId);
+        document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, [todayDate]);
 
 
@@ -420,6 +431,8 @@ const AuthenticatedApp: React.FC<AuthenticatedAppProps> = ({ currentUser, onLogo
             <main className="px-6 pt-2 pb-36">
             {activeTab === 'dashboard' && (
                 <Dashboard 
+                // Add key to force re-render when day changes
+                key={todayDate}
                 currentDate={todayDate}
                 dailyLog={currentDailyLog}
                 targetCalories={profile.targetCalories}
@@ -666,8 +679,8 @@ const AuthenticatedApp: React.FC<AuthenticatedAppProps> = ({ currentUser, onLogo
             </main>
         </div>
 
-        {/* Nav Bar */}
-        <div className="absolute bottom-[52px] left-1/2 -translate-x-1/2 z-40 w-[90%] max-w-md pb-safe-bottom">
+        {/* Nav Bar - MOVED DOWN 25PX (52px -> 27px) */}
+        <div className="absolute bottom-[27px] left-1/2 -translate-x-1/2 z-40 w-[90%] max-w-md pb-safe-bottom">
              <nav className="bg-white dark:bg-slate-800 rounded-full shadow-float px-2 py-3 flex items-center justify-between border border-slate-100 dark:border-slate-700/50">
                 {[{ id: 'dashboard', icon: LayoutDashboard }, { id: 'tracker', icon: List }, { id: 'weight', icon: Scale }, { id: 'reports', icon: PieChart }, { id: 'profile', icon: User }].map((item) => (
                     <button 
