@@ -1,0 +1,8 @@
+{
+  "name": "NutriLife Tracker - AI v3.2.5",
+  "description": "A professional, 3D-styled nutrition tracker with AI-powered meal analysis, daily scheduling, and comprehensive reporting.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
