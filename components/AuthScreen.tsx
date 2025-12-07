@@ -8,10 +8,9 @@ interface AuthScreenProps {
   lang?: Language;
 }
 
-export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, lang = 'vi' }) => {
+export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -92,7 +91,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, lang = 'vi' }) 
                             <Lock size={20} />
                         </div>
                         <input
-                            type={showPassword ? "text" : "password"}
+                            type="password"
                             className="w-full pl-12 pr-12 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-slate-800 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 outline-none transition-all placeholder:text-slate-300"
                             placeholder="••••••••"
                             value={password}
