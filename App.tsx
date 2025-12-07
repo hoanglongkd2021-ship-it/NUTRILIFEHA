@@ -374,7 +374,9 @@ const AuthenticatedApp: React.FC<AuthenticatedAppProps> = ({ currentUser, onLogo
   };
 
   return (
-    <div className="min-h-screen font-sans text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-900 flex items-center justify-center p-0 sm:p-6 transition-colors duration-300">
+    // UPDATED: Removed "items-center" and added "items-start" for mobile. Kept "sm:items-center" for desktop.
+    // This pushes the app to the very top on mobile devices, removing the gap.
+    <div className="min-h-screen font-sans text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-900 flex items-start sm:items-center justify-center p-0 sm:p-6 transition-colors duration-300">
       {/* 
           UPDATED CONTAINER LOGIC: 
           - Mobile (< sm): w-full, h-[100dvh], no border, no radius.
@@ -384,7 +386,8 @@ const AuthenticatedApp: React.FC<AuthenticatedAppProps> = ({ currentUser, onLogo
         
         {/* Mobile Status Bar - PUSHED UP TO MAXIMIZE SPACE (No Safe Top Padding) */}
         <div className="w-full bg-slate-50/90 dark:bg-slate-950/90 backdrop-blur-sm sticky top-0 z-40 border-b border-transparent dark:border-slate-800/50">
-            <header className="px-6 pt-4 pb-2 flex justify-between items-center">
+            {/* Reduced pt-4 to pt-2 to push content further up as requested */}
+            <header className="px-6 pt-2 pb-2 flex justify-between items-center">
             <div>
                 <p className="text-xs font-bold text-teal-500 uppercase tracking-wide mb-0.5">{t.hello}, {profile.name}</p>
                 <h1 className="text-2xl font-display font-extrabold text-slate-800 dark:text-white tracking-tight">
